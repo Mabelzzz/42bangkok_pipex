@@ -43,7 +43,7 @@ void	err_msg(char *msg)
 	}
 }
 
-int	find_path(t_pipe *p, char **env)
+int	find_path(t_cmd *p, char **env)
 {
 	int	i;
 
@@ -63,42 +63,128 @@ int	find_path(t_pipe *p, char **env)
 	return (p->found_path);
 }
 
-void	init_value(t_pipe *p)
+void	init_value(t_cmd *p)
 {
 	p->found_path = -1;
 	p->path = NULL;
 }
 
-void find_access_path(t_pipe *p, char *str)
+int check_access_path(t_cmd *p, char *cmd)
+{
+	int	i;
+
+	if (cmd[0] == '/')
+		return(access(cmd, F_OK));
+	else
+	{
+		i = -1;
+		while (p->path[++i])
+		{
+			if (access(ft_strjoin(p->path[i], cmd), F_OK) == 0)
+				return (0);
+			i++;
+		}
+	}
+	return (-1);
+	// while (access())
+}
+void	create_pipe(int argc, t_cmd *p)
 {
 	int	i;
 
 	i = 0;
-	// while (access())
+	while (i < argc - 4)
+	{
+		if(pipe(p[i].pipe->pfd) == -1)
+		{
+			err_msg("cant creating pipe\n");
+			//sth error
+		}
+		i++;
+	}
 }
-void	create_pipe()
+void	child_process(t_cmd *p, char** argv, int i)
 {
+	if (i == 0)
+	{
+		p->fd_infile = open(argv[1], O_RDONLY);
+		dup2(p->fd_infile, 0);
+		close(p->fd_infile);
+	}
+	else
+		dup2(p[i - 1].pipe->pfd[0], 0);
 
+	if (i == p->ac - 4)
+	{
+		p->fd_outfile = open(argv[i - 4], O_RDONLY);
+		dup2(p->fd_outfile, 1);
+		close(p->fd_outfile);
+	}
+	else
+	{
+		dup2(p[i + 1].pipe->pfd[1], 1);
+	}
+
+
+}
+
+void	create_fork(char** argv, t_cmd *p)
+{
+	int	i;
+
+	i = 0;
+
+	while (i < p->ac - 3)
+	{
+		p[i].pipe->pid[i] = fork();
+		if(p[i].pipe->pid[i] == -1)
+		{
+			err_msg("cant creating fork\n");
+			//sth error
+		}
+		else if(p[i].pipe->pid[i] == 0)
+		{
+			if (check_access_path(p, argv[i + 1]) == -1)
+				err_msg("error, invalid path\n");
+				//sth error
+			else
+			{
+				
+				child_process(p, argv, i);
+			}
+		}
+		else
+		{
+			//parent process
+			printf("Paraent process\n");
+		}
+		i++;
+	}
 }
 int main(int argc, char** argv, char **env)
 {
 	(void) argc;
 	// (void) argv;
-	t_pipe *p;
-	char *cmd1[2];
-	cmd1[0] = argv[2];
-	cmd1[1] = 0;
+	t_cmd 	*p;
 
-
+	// char *cmd1[2];
+	// cmd1[0] = argv[2];
+	// cmd1[1] = 0;
 
 	if (argc != 5)
 		err_msg("Invalid argument");
-	// init_value(p);
-	// if (find_path(p, env) != 1)
+	p = malloc(sizeof(t_cmd) * (argc - 4));
+	p->ac = argc;
+	init_value(p);
+	if (find_path(p, env) != 1)
+		p->path = ft_split(&env[p->found_path][5], ':');
+	int i = -1;
+	while (p->path[++i])
+		printf("path %d = |%s|\n", i, p->path[i]);
 	// 	find_access_path(p, &env[p->found_path][5])
-	create_pipe();
-	create_fork();
-	execve("/bin/ls", cmd1, env);
+	// create_pipe(argc, p);
+	// create_fork(argc, argv, p);
+	// execve("/bin/ls", cmd1, env);
 	printf("-------------------------------------------------\n");
 	// execve("/bin/cat", &argv[3], env);
 	// if (found_path == 0)

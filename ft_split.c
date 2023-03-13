@@ -1,12 +1,13 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchiewli <rchiewli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pnamwayk <pnamwayk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:05:51 by pnamwayk          #+#    #+#             */
-/*   Updated: 2023/03/12 13:54:18 by rchiewli         ###   ########.fr       */
+/*   Updated: 2023/03/13 15:56:53 by pnamwayk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +29,7 @@ char	*keep_alphabet(char const *s, char c)
 	char	*word;
 
 	i = 0;
-	word = malloc(sizeof(char) * (cnt_alphabet(s, c) + 1));
+	word = malloc(sizeof(char) * (cnt_alphabet(s, c) + 2));
 	if (!word)
 		return (NULL);
 	while (s[i] && s[i] != c && i <= cnt_alphabet(s, c))
@@ -36,7 +37,8 @@ char	*keep_alphabet(char const *s, char c)
 		word[i] = s[i];
 		i++;
 	}
-	word[i] = '\0';
+	word[i] = '/';
+	word[i + 1] = '\0';
 	return (word);
 }
 
@@ -84,3 +86,4 @@ char	**ft_split(char const *s, char c)
 	word[j] = NULL;
 	return (word);
 }
+
