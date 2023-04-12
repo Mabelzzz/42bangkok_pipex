@@ -10,14 +10,14 @@
 #include <time.h>
 #include <sys/wait.h>
 
-typedef struct s_fd
-{
-	int		pfd[2];
-	int		*pid;
-	char	*cmd[2];
+// typedef struct s_fd
+// {
+// 	// int		*pfd[2];
+// 	// int		*pid;
+// 	char	*cmd[2];
 
 
-}	t_fd;
+// }	t_fd;
 
 typedef struct s_cmd
 {
@@ -26,7 +26,12 @@ typedef struct s_cmd
 	int		fd_outfile;
 	int		ac;
 	char 	**path;
-	t_fd	*pipe;
+	int		**fd_pipe;
+	int		*pid;
+	int		**pfd;
+	char	***cmd;
+	char	*cur_path;
+	// t_fd	*pipe;
 
 }	t_cmd;
 
@@ -34,7 +39,8 @@ char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlen(const char *str);
-
+void	err_msg(char *msg);
+int		ft_strstr(char *str, char *find);
 // typedef struct s_cmd
 // {
 // 	int		found_path;

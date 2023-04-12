@@ -37,8 +37,7 @@ char	*keep_alphabet(char const *s, char c)
 		word[i] = s[i];
 		i++;
 	}
-	word[i] = '/';
-	word[i + 1] = '\0';
+	word[i] = '\0';
 	return (word);
 }
 
