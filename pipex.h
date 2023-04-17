@@ -22,15 +22,20 @@
 typedef struct s_cmd
 {
 	int		found_path;
-	int		fd_infile;
-	int		fd_outfile;
+	// int		fd_infile;
+	// int		fd_outfile;
 	int		ac;
 	char 	**path;
 	int		**fd_pipe;
-	int		*pid;
-	int		**pfd;
+	// int		*pid;
+	// int		**pfd;
 	char	***cmd;
+	char	**cmd1;
+	char	**cmd2;
+	int		pfd[2];
+	int		pid[2];
 	char	*cur_path;
+	int		status;
 	// t_fd	*pipe;
 
 }	t_cmd;
@@ -39,8 +44,12 @@ char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlen(const char *str);
+char	*ft_strdup(const char *str);
 void	err_msg(char *msg);
 int		ft_strstr(char *str, char *find);
+int		ft_find_slash(char *str);
+void	child_process1(t_cmd *p, char **env, char** argv);
+void	child_process2(t_cmd *p, char **env, char** argv);
 // typedef struct s_cmd
 // {
 // 	int		found_path;
@@ -52,7 +61,7 @@ int		ft_strstr(char *str, char *find);
 // {
 // 	int		found_path;
 // 	char	*path;
-// 	t_pipe	*p;
+// 	// t_pipe	*p;
 
 // }	t_cmp;
 #endif

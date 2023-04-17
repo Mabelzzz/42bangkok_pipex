@@ -22,10 +22,10 @@ int	ft_strstr(char *str, char *find)
 				i++;
 			}
 			if (cp == j)
-				return (i);
+				return (0);
 		}
 		i++;
 	}
-	return (0);
+	return (-1);
 }
 
