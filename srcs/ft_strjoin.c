@@ -6,11 +6,11 @@
 /*   By: pnamwayk <pnamwayk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 21:38:58 by pnamwayk          #+#    #+#             */
-/*   Updated: 2023/03/19 16:04:50 by pnamwayk         ###   ########.fr       */
+/*   Updated: 2023/04/24 00:56:50 by pnamwayk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

@@ -1,4 +1,4 @@
-#include "pipex.h"
+#include "../includes/pipex_bonus.h"
 
 char	*ft_strdup(const char *str)
 {

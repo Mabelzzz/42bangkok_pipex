@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pnamwayk <pnamwayk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/08 19:55:33 by pnamwayk          #+#    #+#             */
-/*   Updated: 2023/03/13 19:27:43 by pnamwayk         ###   ########.fr       */
+/*   Created: 2022/07/02 19:39:33 by pnamwayk          #+#    #+#             */
+/*   Updated: 2023/04/24 00:56:50 by pnamwayk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+size_t	ft_strlen(const char *str)
 {
-	size_t	index;
+	size_t	len;
 
-	index = 0;
-	if (dstsize > 0)
-	{
-		while (dstsize-- > 1 && src[index] != 0)
-		{
-			dst[index] = src[index];
-			index++;
-		}
-		dst[index] = 0;
-	}
-	return (ft_strlen(src));
+	len = 0;
+	while (str[len] != '\0')
+		len++;
+	return (len);
 }
