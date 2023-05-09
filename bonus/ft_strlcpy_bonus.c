@@ -6,13 +6,14 @@
 /*   By: pnamwayk <pnamwayk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 19:55:33 by pnamwayk          #+#    #+#             */
-/*   Updated: 2023/04/24 01:00:39 by pnamwayk         ###   ########.fr       */
+/*   Updated: 2023/05/09 01:23:47 by pnamwayk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
+#include "../gnl/get_next_line.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 {
 	size_t	index;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnamwayk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pnamwayk <pnamwayk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:23:59 by pnamwayk          #+#    #+#             */
-/*   Updated: 2022/10/30 19:26:47 by pnamwayk         ###   ########.fr       */
+/*   Updated: 2023/05/09 01:35:51 by pnamwayk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include "../includes/pipex_bonus.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -31,10 +32,10 @@ typedef struct s_gnl{
 
 char	*get_next_line(int fd);
 size_t	check_newline(char *buf);
-size_t	ft_strlen(char *str);
+// size_t	ft_strlen(char *str);
 size_t	check_eof(char *str);
 char	*ft_strjoin_nl(char *s1, char *s2, size_t nbyte);
-char	*ft_strdup(char *str);
+// char	*ft_strdup(char *str);
 char	*get_temp(char *tmp);
 char	*get_line(char *tmp);
 char	*tmp_cnt(char *s, size_t nbyte);

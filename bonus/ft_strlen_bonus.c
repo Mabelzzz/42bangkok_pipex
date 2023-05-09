@@ -6,13 +6,14 @@
 /*   By: pnamwayk <pnamwayk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 19:39:33 by pnamwayk          #+#    #+#             */
-/*   Updated: 2023/04/24 01:00:34 by pnamwayk         ###   ########.fr       */
+/*   Updated: 2023/05/09 01:31:11 by pnamwayk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
+// #include "../gnl/get_next_line.h"
 
-size_t	ft_strlen(const char *str)
+size_t	ft_strlen(char *str)
 {
 	size_t	len;
 

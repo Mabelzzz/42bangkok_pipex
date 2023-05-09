@@ -1,6 +1,7 @@
 #include "../includes/pipex_bonus.h"
+#include "../gnl/get_next_line.h"
 
-char	*ft_strdup(const char *str)
+char	*ft_strdup(char *str)
 {
 	char	*new;
 	int		index;

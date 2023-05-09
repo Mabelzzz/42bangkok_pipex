@@ -12,14 +12,17 @@ SRCS = 	srcs/pipex.c \
 		srcs/ft_strdup.c \
         srcs/utils.c \
 
-BSRCS = srcs/pipex_bonus.c \
-		srcs/ft_strjoin_bonus.c \
-        srcs/ft_strlcpy_bonus.c \
-        srcs/ft_strlen_bonus.c \
-        srcs/ft_split_bonus.c \
-		srcs/ft_strstr_bonus.c \
-		srcs/ft_strdup_bonus.c \
-        srcs/utils_bonus.c \
+BSRCS = bonus/pipex_bonus.c \
+		bonus/ft_strjoin_bonus.c \
+        bonus/ft_strlcpy_bonus.c \
+        bonus/ft_strlen_bonus.c \
+		bonus/ft_strncmp_bonus.c \
+        bonus/ft_split_bonus.c \
+		bonus/ft_strstr_bonus.c \
+		bonus/ft_strdup_bonus.c \
+        bonus/utils_bonus.c \
+		gnl/get_next_line.c \
+		gnl/get_next_line_utils.c \
 
 OBJS1 = $(SRCS:.c=.o)
 
@@ -51,5 +54,6 @@ fclean: clean
 re:	fclean all
 
 bonus: $(BNAME) all
+		@echo "\033[0;32m\n\nCompiling pipex (with bonuses)..."
 
 .PHONY:	bonus clean fclean all re

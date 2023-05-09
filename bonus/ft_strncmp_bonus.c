@@ -6,13 +6,14 @@
 /*   By: pnamwayk <pnamwayk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 17:27:46 by pnamwayk          #+#    #+#             */
-/*   Updated: 2023/04/24 01:07:11 by pnamwayk         ###   ########.fr       */
+/*   Updated: 2023/05/09 01:23:56 by pnamwayk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
+#include "../gnl/get_next_line.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strncmp(char *s1, char *s2, size_t n)
 {
 	int				diff;
 	unsigned int	index;

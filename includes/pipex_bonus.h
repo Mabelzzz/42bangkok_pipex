@@ -48,13 +48,15 @@ typedef struct s_cmd
 {
 	char	**cmd;
 	int		cmd_nbr;
-	int		i;
+	int		argc;
+	int		heredoc;
+	int		cur;
 	int		pfd[2];
-	int		pid[2];
+	pid_t	pid;
 	char	*cur_path;
 	char 	**path;
-
-
+	int		fd_file;
+	
 	int		found_path;
 	int		fd_infile;
 	int		fd_outfile;
@@ -70,11 +72,12 @@ typedef struct s_cmd
 }	t_cmd;
 
 char	**ft_split(char const *s, char c);
-char	*ft_strjoin(char const *s1, char const *s2);
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-size_t	ft_strlen(const char *str);
-char	*ft_strdup(const char *str);
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_strjoin(char *s1, char *s2);
+size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);
+int	ft_strncmp(char *s1, char *s2, size_t n);
+size_t	ft_strlen(char *str);
+char	*ft_strdup(char *str);
+int	ft_strncmp(char *s1, char *s2, size_t n);
 void	err_msg(t_cmd *p, char *msg);
 int		ft_strstr(char *str, char *find);
 int		ft_find_slash(char *str);

@@ -1,4 +1,5 @@
 #include "../includes/pipex_bonus.h"
+#include "../gnl/get_next_line.h"
 
 void	err_msg(t_cmd *p, char *msg)
 {

@@ -1,4 +1,5 @@
 #include "../includes/pipex.h"
+#include "../gnl/get_next_line.h"
 
 int	ft_strstr(char *str, char *find)
 {

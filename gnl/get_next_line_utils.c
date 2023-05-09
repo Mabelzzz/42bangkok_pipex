@@ -6,7 +6,7 @@
 /*   By: pnamwayk <pnamwayk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 10:51:14 by pnamwayk          #+#    #+#             */
-/*   Updated: 2023/04/23 11:23:42 by pnamwayk         ###   ########.fr       */
+/*   Updated: 2023/05/09 01:36:08 by pnamwayk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,35 +27,35 @@ size_t	check_newline(char *buf)
 	return (len);
 }
 
-size_t	ft_strlen(char *str)
-{
-	size_t	len;
+// size_t	ft_strlen(char *str)
+// {
+// 	size_t	len;
 
-	len = 0;
-	while (str[len] != '\0')
-		len++;
-	return (len);
-}
+// 	len = 0;
+// 	while (str[len] != '\0')
+// 		len++;
+// 	return (len);
+// }
 
-char	*ft_strdup(char *str)
-{
-	char	*new;
-	size_t	index;
-	size_t	len;
+// char	*ft_strdup(char *str)
+// {
+// 	char	*new;
+// 	size_t	index;
+// 	size_t	len;
 
-	len = ft_strlen(str);
-	new = malloc(sizeof(char) * (len + 1));
-	if (!new)
-		return (NULL);
-	index = 0;
-	while (str[index] != 0 && index < len)
-	{
-		new[index] = str[index];
-		index++;
-	}
-	new[index] = 0;
-	return (new);
-}
+// 	len = ft_strlen(str);
+// 	new = malloc(sizeof(char) * (len + 1));
+// 	if (!new)
+// 		return (NULL);
+// 	index = 0;
+// 	while (str[index] != 0 && index < len)
+// 	{
+// 		new[index] = str[index];
+// 		index++;
+// 	}
+// 	new[index] = 0;
+// 	return (new);
+// }
 
 char	*tmp_cnt(char *s, size_t nbyte)
 {
