@@ -9,7 +9,7 @@
 #include <string.h>
 #include <time.h>
 #include <sys/wait.h>
-
+# include	<errno.h>
 // typedef struct s_fd
 // {
 // 	// int		*pfd[2];
@@ -30,13 +30,13 @@
 
 // ft_prepcmd:
 // 	infile outfile 2
-// 	cmd cmd 
+// 	cmd cmd
 // 	if argv[0] == 'here_doc'
 // 		6 min
 // 		argv[0,1, -1] reserve, rest is cmds
 // 	else
 // 		5 min argv[0, -1] reserce, rest is cmds
-	
+
 // 	malloc (t_cmd * argc - 4 or 3)
 // 	split space argv
 // 	assign t_cmd value
@@ -47,16 +47,18 @@
 typedef struct s_cmd
 {
 	char	**cmd;
+	int		i;
 	int		cmd_nbr;
 	int		argc;
 	int		heredoc;
 	int		cur;
 	int		pfd[2];
-	pid_t	pid;
+	pid_t	*pid;
 	char	*cur_path;
 	char 	**path;
 	int		fd_file;
-	
+	int		tmp_fd;
+
 	int		found_path;
 	int		fd_infile;
 	int		fd_outfile;
@@ -71,6 +73,8 @@ typedef struct s_cmd
 
 }	t_cmd;
 
+void	err_file(t_cmd *p, char *file, int err);
+int	check_limiter(char *line, char *limiter, size_t n);
 char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);
@@ -83,7 +87,8 @@ int		ft_strstr(char *str, char *find);
 int		ft_find_slash(char *str);
 void	child_process1(t_cmd *p, char **env, char** argv);
 void	child_process2(t_cmd *p, char **env, char** argv);
-void ft_free_path(t_cmd *p);
+void	ft_free_path(t_cmd *p);
+void	ft_putstr_fd(char *str, int fd);
 // typedef struct s_cmd
 // {
 // 	int		found_path;
