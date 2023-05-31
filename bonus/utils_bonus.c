@@ -13,7 +13,12 @@ void	err_file(t_cmd *p, char *file, int err)
 		write(STDERR_FILENO, ": Permission denied\n", 21);
 	else if (err == 3)
 		write(STDERR_FILENO, ": command not found\n", 21);
-	exit(EXIT_FAILURE);
+	if (err == 1 || err == 3)
+		exit(127);
+	else if (err == 2)
+		exit(126);
+	else
+		exit(EXIT_FAILURE);
 }
 
 void	err_msg(t_cmd *p, char *msg)

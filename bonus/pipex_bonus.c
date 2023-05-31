@@ -83,10 +83,8 @@ int check_access_path(t_cmd *p, char *cmd)
 void	child_process(t_cmd *p, char** argv,  char **env, int id)
 {
 	close(p->pfd[0]);
-	if (id == 0 && p->heredoc == 1)
-		read_heredoc(p, argv);
-	else
-		ft_dup2(p, argv, id);
+	// else
+	ft_dup2(p, argv, id);
 	close(p->pfd[1]);
 	p->cmd = ft_split(argv[p->cur], ' ');
 	if (check_access_path(p, p->cmd[0]) == -1)
@@ -119,6 +117,8 @@ void	ft_dup2(t_cmd *p, char **argv, int id)
 		dup2(p->fd_file, STDIN_FILENO);
 		dup2(p->pfd[1], STDOUT_FILENO);
 		close(p->fd_file);
+		if (p->heredoc == 1)
+			unlink(argv[1]);
 	}
 	else if(id > 0 && id < p->cmd_nbr - 1)
 	{
@@ -150,25 +150,24 @@ void	read_heredoc(t_cmd *p, char** argv)
 	fd_heredoc = open(argv[1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd_heredoc == -1)
 		err_file(p, argv[1], 1);
-		// err_msg(p, "can not open file heredoc");
-	ft_putstr_fd("heredoc> ", STDOUT_FILENO);
+	ft_putstr_fd("> ", STDOUT_FILENO);
 	line = get_next_line(STDIN_FILENO);
 	while (line && check_limiter(line, argv[2], l) == 1)
 	{
 		len = ft_strlen(line);
 		write(fd_heredoc, line, len);
 		free(line);
-		ft_putstr_fd("heredoc> ", STDOUT_FILENO);
+		ft_putstr_fd("> ", STDOUT_FILENO);
 		line = get_next_line(STDIN_FILENO);
 	}
 	if (line)
 		free(line);
 	close(fd_heredoc);
-	fd_heredoc = open(argv[1], O_RDONLY);
-	dup2(fd_heredoc, STDIN_FILENO);
-	dup2(p->pfd[1], STDOUT_FILENO);
-	close(fd_heredoc);
-	unlink(argv[1]);
+	// fd_heredoc = open(argv[1], O_RDONLY);
+	// dup2(fd_heredoc, STDIN_FILENO);
+	// dup2(p->pfd[1], STDOUT_FILENO);
+	// close(fd_heredoc);
+	// unlink(argv[1]);
 }
 
 void free_cmd(t_cmd *p)
@@ -224,13 +223,10 @@ int main(int argc, char** argv, char **env)
 	if (p.found_path != -1)
 		p.path = ft_split(&env[p.found_path][5], ':');
 	prep_cmd(&p, argv[1]);
-	// if (check_all_access(&p, argv) == -1)
-	// 	err_msg(&p, "Can not access path");
 	create_process(&p, argv, env);
-	// return (WEXITSTATUS(p.status));
-	// exit(EXIT_SUCCESS);
-	// return (WEXITSTATUS(p.status));
 	return WIFEXITED(p.status) && WEXITSTATUS(p.status);
+	// exit(EXIT_SUCCESS);
+	// return (0);
 }
 
 void	prep_cmd(t_cmd *p, char *argv)
@@ -253,6 +249,8 @@ void	create_process(t_cmd *p, char **argv, char **env)
 	sl = p->cur;
 	id = 0;
 	p->pid = malloc(sizeof(pid_t) * p->cmd_nbr);
+	if (p->heredoc == 1)
+		read_heredoc(p, argv);
 	while (p->cur < (p->argc - 1) && id < p->cmd_nbr)
 	{
 		if (id != p->cmd_nbr - 1)
@@ -264,14 +262,9 @@ void	create_process(t_cmd *p, char **argv, char **env)
 		if (p->pid[id] == -1)
 			err_msg(p, "Fork error: ");
 		else if (p->pid[id] == 0)
-			child_process(p, argv, env, id)
+			child_process(p, argv, env, id);
 		else
-		{
-			// dprintf(2, "parent pc = %d\n", id);
 			parent_process(p);
-			// p->tmp_fd = p->pfd[0];
-			// close(p->pfd[1]);
-		}
 		id++;
 		p->cur++;
 	}
@@ -279,21 +272,7 @@ void	create_process(t_cmd *p, char **argv, char **env)
 	close(p->pfd[1]);
 	id = -1;
 	while (++id < p->cmd_nbr)
-	{
-		// if (ft_strncmp(argv[sl], "sleep", 5) == 0)
-		// 	waitpid(p->pid[id], NULL, 0);
 		waitpid(p->pid[id], &p->status,0);
-
-	}
-	// waitpid(p->pid[p->cmd_nbr - 1], NULL, 0);
-	// while (waitpid(-1, NULL, 0) != -1)
-	// {
-	// 	// dprintf(2, "id = %d\n",id++);
-	// }
-
-		// waitpid(-1, NULL, WNOHANG);
-	// close(p->pfd[0]);
-	if (WEXITSTATUS(p->status) != 0)
-		exit(WEXITSTATUS(p->status));
-	// exit(EXIT_SUCCESS);
+	// if (WEXITSTATUS(p->status) != 0)
+	// 	exit(WEXITSTATUS(p->status));
 }
