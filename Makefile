@@ -1,18 +1,40 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: pnamwayk <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/06/02 01:18:39 by pnamwayk          #+#    #+#              #
+#    Updated: 2023/06/02 01:18:40 by pnamwayk         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = pipex
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 SRCS = 	srcs/pipex.c \
+		srcs/check_path.c \
+		srcs/error.c \
+		srcs/free.c \
+		srcs/start_process.c \
+		srcs/utils.c \
+		srcs/ft_split.c \
+		srcs/ft_strdup.c \
 		srcs/ft_strjoin.c \
 		srcs/ft_strlcpy.c \
 		srcs/ft_strlen.c \
-		srcs/ft_split.c \
 		srcs/ft_strstr.c \
-		srcs/ft_strdup.c \
-		srcs/utils.c \
 
 BSRCS = bonus/pipex_bonus.c \
-		bonus/utils_bonus.c \
+		bonus/ft_dup2.c \
+		bonus/process.c \
+		bonus/here_doc.c \
+		bonus/utils_cmd.c \
+		bonus/utils_free.c \
+		bonus/utils_path.c \
+		bonus/utils_error.c \
 		bonus/ft_strjoin_bonus.c \
 		bonus/ft_strlcpy_bonus.c \
 		bonus/ft_strlen_bonus.c \
@@ -43,14 +65,10 @@ bonus: $(B_OBJS)
 	@echo "\033[1;94m\n\nCompiling pipex (with bonuses)..."
 
 norm:
-	norminette -R checkforbiddensourceheader $(SRCS)
+	norminette -R checkforbiddensourceheader $(SRCS) $(BSRCS)
 	norminette -R checkdefine gnl/get_next_line.h
 	norminette -R checkdefine includes/pipex.h includes/pipex_bonus.h
 	@echo "\033[0;32m\n\nNorminette (with all files)..."
-
-# @echo "\033[1;94m\n\nNorminette (with all files)..."
-# "\[\033[1;94m\]"
-
 
 clean:
 	@rm -fr $(M_OBJS) $(B_OBJS)

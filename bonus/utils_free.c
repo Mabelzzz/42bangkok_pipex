@@ -1,30 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp_bonus.c                                 :+:      :+:    :+:   */
+/*   utils_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pnamwayk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/02 00:51:33 by pnamwayk          #+#    #+#             */
-/*   Updated: 2023/06/02 00:51:39 by pnamwayk         ###   ########.fr       */
+/*   Created: 2023/06/02 00:52:41 by pnamwayk          #+#    #+#             */
+/*   Updated: 2023/06/02 00:52:42 by pnamwayk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
-// #include "../gnl/get_next_line.h"
 
-int	ft_strncmp(char *s1, char *s2, size_t n)
+void	free_path(t_cmd *p);
+void	free_cmd(t_cmd *p);
+
+void	free_path(t_cmd *p)
 {
-	int				diff;
-	unsigned int	index;
+	int	i;
 
-	index = 0;
-	diff = 0;
-	while (index < n && (s1[index] != 0 || s2[index] != 0))
-	{
-		if (s1[index] != s2[index])
-			return (1);
-		index++;
-	}
-	return (0);
+	if (p->pid)
+		free(p->pid);
+	if (!p->path)
+		return ;
+	i = -1;
+	while (p->path[++i])
+		free(p->path[i]);
+	free(p->path);
+}
+
+void	free_cmd(t_cmd *p)
+{
+	int	i;
+
+	if (!p->cmd)
+		return ;
+	i = -1;
+	while (p->cmd[++i])
+		free(p->cmd[i]);
+	free(p->cmd);
 }

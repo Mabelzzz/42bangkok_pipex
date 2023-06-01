@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnamwayk <pnamwayk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pnamwayk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/02 19:39:33 by pnamwayk          #+#    #+#             */
-/*   Updated: 2023/05/09 01:31:11 by pnamwayk         ###   ########.fr       */
+/*   Created: 2023/06/02 00:51:23 by pnamwayk          #+#    #+#             */
+/*   Updated: 2023/06/02 00:51:26 by pnamwayk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
-// #include "../gnl/get_next_line.h"
 
 size_t	ft_strlen(char *str)
 {

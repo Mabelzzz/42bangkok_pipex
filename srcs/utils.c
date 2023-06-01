@@ -1,44 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pnamwayk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/02 00:49:13 by pnamwayk          #+#    #+#             */
+/*   Updated: 2023/06/02 00:49:14 by pnamwayk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/pipex.h"
 
-void	err_msg(t_cmd *p, char *msg)
-{
-	// int	i;
+void	init_value(t_cmd *p);
+void	dup_close_evth(t_cmd *p, int fd, int child);
+void	close_pipe(t_cmd *p);
 
-	// i = 0;
-	// if (!msg)
-	// 	return ;
-	// while (msg[i] != '\0')
-	// {
-	// 	write(1, &msg[i], 1);
-	// 	i++;
-	// }
-	ft_free_path(p);
-	perror(msg);
-	write(1, "\n", 1);
-	exit(EXIT_FAILURE);
+void	init_value(t_cmd *p)
+{
+	p->found_path = -1;
+	p->path = NULL;
 }
 
-int ft_find_slash(char *str)
+void	close_pipe(t_cmd *p)
 {
-	if (*str == '/')
-		return (0);
-	while (*str++ != '\0')
-	{
-		if (*str == '/')
-			return (0);
-	}
-	return (-1);
+	close(p->pfd[0]);
+	close(p->pfd[1]);
 }
 
-void ft_free_path(t_cmd *p)
+void	dup_close_evth(t_cmd *p, int fd, int child)
 {
-	int	i;
-
-	i = 0;
-	while(p->path[i])
+	if (child == 1)
 	{
-		free(p->path[i]);
-		i++;
+		dup2(fd, 0);
+		dup2(p->pfd[1], 1);
 	}
-	free(p->path);
+	else if (child == 2)
+	{
+		dup2(p->pfd[0], 0);
+		dup2(fd, 1);
+	}
+	close(fd);
+	close_pipe(p);
 }

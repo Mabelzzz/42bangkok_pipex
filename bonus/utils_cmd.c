@@ -1,30 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp_bonus.c                                 :+:      :+:    :+:   */
+/*   utils_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pnamwayk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/02 00:51:33 by pnamwayk          #+#    #+#             */
-/*   Updated: 2023/06/02 00:51:39 by pnamwayk         ###   ########.fr       */
+/*   Created: 2023/06/02 00:52:27 by pnamwayk          #+#    #+#             */
+/*   Updated: 2023/06/02 00:52:28 by pnamwayk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
-// #include "../gnl/get_next_line.h"
 
-int	ft_strncmp(char *s1, char *s2, size_t n)
+int		ft_find_slash(char *str);
+void	count_cmd(t_cmd *p, char *filename);
+
+int	ft_find_slash(char *str)
 {
-	int				diff;
-	unsigned int	index;
+	int	i;
 
-	index = 0;
-	diff = 0;
-	while (index < n && (s1[index] != 0 || s2[index] != 0))
+	i = -1;
+	if (!str)
+		return (-1);
+	while (str[++i] != '\0')
 	{
-		if (s1[index] != s2[index])
-			return (1);
-		index++;
+		if (str[i] == '/')
+			return (0);
 	}
-	return (0);
+	return (-1);
+}
+
+void	count_cmd(t_cmd *p, char *filename)
+{
+	if (p->argc >= 6 && !ft_strncmp(filename, "here_doc", 9))
+	{
+		p->heredoc = 1;
+		p->cmd_nbr = p->argc - 4;
+	}
+	else
+		p->cmd_nbr = p->argc - 3;
+	p->cur = p->argc - (p->cmd_nbr + 1);
 }

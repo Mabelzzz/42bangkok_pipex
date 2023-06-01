@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pnamwayk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/08 21:32:48 by pnamwayk          #+#    #+#             */
-/*   Updated: 2023/05/31 00:30:06 by pnamwayk         ###   ########.fr       */
+/*   Created: 2023/06/02 00:49:45 by pnamwayk          #+#    #+#             */
+/*   Updated: 2023/06/02 00:49:51 by pnamwayk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
-// #include "../gnl/get_next_line.h"
 
 void	ft_putstr_fd(char *str, int fd)
 {
